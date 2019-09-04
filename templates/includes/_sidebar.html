@@ -1,0 +1,57 @@
+<nav class="col-md-auto d-none d-md-block bg-light sidebar" style="font-size: 1.2em;">
+
+  <div class="sidebar-sticky pl-3 pr-4 mt-2">
+
+    <ul class="nav flex-column">
+      <li class="nav-item">
+        <a class="nav-link {% if active_page == 'dashboard' %} active {% endif %}" href="/">
+          <span data-feather="home"></span>
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if active_page == 'teams' %} active {% endif %}" href="teams">
+          <span data-feather="users"></span>
+          Teams
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if active_page == 'systems' %} active {% endif %}" href="systems">
+          <span data-feather="terminal"></span>
+          Systems
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if active_page == 'modules' %} active {% endif %}" href="modules">
+          <span data-feather="crosshair"></span>
+          Modules
+        </a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link {% if active_page == 'workshop' %} active {% endif %}" href="workshop">
+        <span data-feather="monitor"></span>
+        Workshop
+      </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link {% if active_page == 'engine' %} active {% endif %}" href="engine">
+          <span data-feather="activity"></span>
+          Engine
+        </a>
+      </li>
+      </ul>
+      <div class="col-2 pt-3">
+        {% if not r %}
+           <span class="badge badge-danger">Cycler: Off</span>
+          {% else %}
+          <span class="badge badge-primary">Cycler: Active</span>
+        {% endif %}
+        {% if not d %}
+          <br><span class="badge badge-success">Destruction: False</span>
+          {% else %}
+          <br><span class="badge badge-danger">Destruction: True</span>
+        {% endif %}
+      </div>
+
+  </div>
+</nav>

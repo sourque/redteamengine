@@ -1,0 +1,79 @@
+{% extends 'layout.html' %}
+
+{% block title %} Dashboard {% endblock %}
+{% block header %} <h1>Dashboard</h1> {% endblock %}
+{% set active_page = "dashboard" %}
+
+{% block body %}
+
+    <div class="row">
+
+	    <div class="col-sm-10">
+
+
+        <canvas id="myChart" width="600" height="430"></canvas>
+
+        <script>
+        var ctx = document.getElementById('myChart');
+
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [
+                    {% for item in labels %}
+                        "{{ item }}",
+                    {% endfor %}
+                ],
+
+                datasets: [
+
+                    {% for value in values %}
+                    {
+                    label: '{{ value[0] }}',
+                    fill: 'False',
+                    borderColor: '{{ value[1] }}',
+                    data: {{ value[2] }}
+                    },
+                    {% endfor %}
+
+            ]},
+            options: {
+                title: {
+                    display: 'true',
+                    fontSize: '18',
+                    padding: '5',
+                    text: 'Access Over Time'
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                            stepSize: 1,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            fontSize: 15,
+                            labelString: 'Shells'
+                       }
+                    }],
+                    xAxes: [{
+                        ticks: {
+                            beginAtZero: true,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            fontSize: 15,
+                            labelString: 'Cycle Number'
+                       }
+                    }]
+                }
+            }
+        });
+
+        </script>
+
+	    </div>
+
+    </div>
+
+{% endblock %}

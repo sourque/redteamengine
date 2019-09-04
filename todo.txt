@@ -1,0 +1,33 @@
+
+todo
+    - make export config button functional
+    - ability to manually add vuln from webapp
+    - fill reports page with stats
+    - allow passive payloads by spawning thread and checking on it each cycle
+        - add to access (?) keep session open
+	- ONLY if payloads are passive, otherwise timeout (add passive option to DB)
+    - proxies: ADD TO README
+        - just run msgrpc on different ips
+    	- add proxies to db (load config settings config.yaml)
+		- add proxy tests to aunh_msfrpc
+    - replicate beacons
+    - implement gamemodes and workshop images
+    - get side menu to be functional
+    - add looting post modules
+    - system editing functionality    
+    - put start/stop button on sidebar for convenience
+    - autoamte grabbing filenames from modules repo
+    - add favicon
+
+LONG TERM
+    - contemplate the possiblity of blue team sql-injecting the red team engine by manipulating some portion of a vuln tuplet since you just chuck it in the db
+        -that's somewhat fixable... just find a way to safely support variable
+    - add SSL to the msgrpc
+    - dark mode toggle (tough)
+    - write documentation
+    - add data validation for a lot of stuff
+	- login page
+    - breadcrumb links or back button
+    - add loot (user/pw combos, hashed pws, whatever. add to loot array)
+		- keep user:password combos for use in modules
+    - save mm status/dump/import

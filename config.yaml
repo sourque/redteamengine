@@ -1,0 +1,36 @@
+settings:
+    password: TripleWater
+
+teams:
+    team1:
+        team_name: Byte Sized Falcons
+        prefix: 127.0.0.
+        difficulty: 1
+    team2:
+        team_name: Togo
+        prefix: 192.168.80.
+        difficulty: 1
+
+
+systems:
+    system1:
+        name: samoas
+        os: linux
+        flavor: debian
+        ip: 1
+        vulns:
+            vuln1:
+                name: entry_any_webshell
+                info: ('80', '/?cmd=', 'GET')
+            vuln2:
+                name: entry_linux_ssh
+                info: ('22', 'dev', 'dope')
+    system2:
+        name: thinmint
+        os: win
+        flavor: 2016
+        ip: 193
+        vulns:
+            vuln1:
+                name: entry_any_webshell
+                info: ('80', '/?cmd=', 'GET')

@@ -1,0 +1,82 @@
+{% extends 'layout.html' %}
+
+{% block title %}Modules{% endblock %}
+{% block header %}<h1>Modules</h1>{% endblock %}
+{% set active_page = "modules" %}
+
+{% block body %}
+
+
+   {% for module in modules %}
+
+	<div class="row align-items-center px-2 pt-3 {{ loop.cycle('', 'bg-light') }}" style="font-size:1.2em;">
+		  <div class="col-4">Module {{ module[0] }}:</div>
+	    <div class="col-sm-auto" >
+	        <span class="text-primary" data-feather="hard-drive"></span>
+	        {{ module[2] }}/{{ module[3] }}
+      </div>
+      <div class="col-sm-auto" title="Is it destructive?">
+          {% if module[5]|string() == 'bash' %}
+            <span class="text-warning" data-feather="terminal"></span>
+          {% elif module[5]|string() == 'msf' %}
+            <span class="text-info" data-feather="terminal"></span>
+          {% endif %}
+          {{ module[5] }}
+      </div>
+      <div class="col-sm-auto" title="Difficulty">
+        {{ module[8] }}
+        <span class="text-danger" data-feather="bar-chart"></span>
+      </div>
+	</div>
+
+  <div class="row align-items-center px-2 pb-3 {{ loop.cycle('', 'bg-light') }}" style="font-size:1.2em;">
+      <div class="col-4">
+          <b>{{ module[1] }}</b>
+      </div>
+
+      <div class="col-sm-auto">
+          {% if module[4]|string() == 'post' %}
+	          <span class="text-secondary" data-feather="refresh-cw"></span>
+          {% elif module[4]|string() == 'entry' %}
+            <span class="text-success" data-feather="arrow-right"></span>
+          {% else %}
+            <span class="text-danger" data-feather="heart"></span>
+          {% endif %}
+	        {{ module[4] }}
+      </div>
+
+      <div class="col-sm-auto" title="Destructive">
+        {% if module[6]|string() == 'False' %}
+          <span class="text-danger" data-feather="x"></span>
+        {% elif module[6]|string() == 'True' %}
+          <span class="text-success" data-feather="check"></span>
+        {% endif %}
+        Destroy
+      </div>
+
+      <div class="col-sm-auto" title="Scannable">
+        {% if module[7]|string() == 'False' %}
+          <span class="text-danger" data-feather="x"></span>
+        {% elif module[7]|string() == 'True' %}
+          <span class="text-success" data-feather="check"></span>
+        {% endif %}
+        Scan
+      </div>
+
+      <div class="col-sm-auto" title="Level of Privilege Required">
+        {% if module[9]|string() == 'root' %}
+          <span class="text-success" data-feather="hash"></span>
+          Root
+        {% elif module[9]|string() == 'user' %}
+          <span class="text-primary" data-feather="user"></span>
+          User
+        {% else %}
+          <span class="text-secondary" data-feather="lock"></span>
+          Unpriv
+        {% endif %}
+      </div>
+  </div>
+
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,115 @@
+{% extends 'layout.html' %}
+
+{% block title %}Edit {{ team.name }}{% endblock %}
+{% block header %}
+
+    <form method="post" action="{{ url_for('teams') }}{% if team %}?view={{ team.id }}{% endif %}">
+    <div class="row align-items-center">
+        <div class="col">
+         <h1><input type="text" class="form-control form-control-lg form-control-inline mb-2" id="name" name="name" placeholder="{% if team %}{{ team.name }}{% else %}Team Name{% endif %}"></h1>
+         </div>
+    </div>
+
+
+{% endblock %}
+{% set active_page = "teams" %}
+
+{% block body %}
+
+    <div class="row text-left align-items-center p-2" style="font-size:1.2em;">
+	    <div class="col-2"><b>Info:</b></div>
+	    <div class="col-3">
+			    <i>Team ID:</i> <b>{% if team %}{{ team.id }}{% else %}New{% endif %}</b>
+	    </div>
+        <div class="col-6 form-inline ">
+	        <input type="text" class="form-control form-control-sm" id="ip" name="ip" placeholder="{% if team %}{{ team.ip }}{% else %}IP Address{% endif %}">
+
+        </div>
+    </div>
+
+    <div class="container-sm">
+	    <div class="row text-left align-items-center p-2 bg-light" style="font-size:1.2em;">
+		    <div class="col-2"><b>Shells:</b></div>
+		    <div class="col-auto">
+				    {% if team %}{{ team.root_shells }}{% endif %} <span class="text-success" data-feather="hash"></span> Root shells
+		    </div>
+		    <div class="col-auto">
+				    {% if team %}{{ team.user_shells }}{% endif %} <span class="text-primary" data-feather="user"></span> User shells
+		    </div>
+		    <div class="col-auto">
+				    {% if team %}{{ team.unpriv_shells }}{% endif %} <span class="text-muted" data-feather="lock"></span> Unpriv. shells
+		    </div>
+	    </div>
+	    <div class="row text-left align-items-center p-2 mb-3" style="font-size:1.2em;">
+		    <div class="col-2"><b>Difficulty:</b></div>
+		    <div class="col-2">
+		        <select id="difficulty" name="difficulty" class="form-control form-inline form-control-sm">
+		        <!-- make this more efficient... i tried using jinja's for range loop but then it wouldn't default select the correct difficulty -->
+                {% if team and team.difficulty|string() == "1" %}
+                    <option selected="selected">1</option>
+                    {% else %}
+                    <option>1</option>
+                    {% endif %}
+                    {% if team and team.difficulty|string() == "2" %}
+                    <option selected="selected">2</option>
+                    {% else %}
+                    <option>2</option>
+                    {% endif %}
+                    {% if team and team.difficulty|string() == "3" %}
+                    <option selected="selected">3</option>
+                    {% else %}
+                    <option>3</option>
+                    {% endif %}
+                    {% if team and team.difficulty|string() == "4" %}
+                    <option selected="selected">4</option>
+                    {% else %}
+                    <option>4</option>
+                    {% endif %}
+                    {% if team and team.difficulty|string() == "5" %}
+                    <option selected="selected">5</option>
+                    {% else %}
+                    <option>5</option>
+                    {% endif %}
+                    {% if team and team.difficulty|string() == "6" %}
+                    <option selected="selected">6</option>
+                    {% else %}
+                    <option>6</option>
+                    {% endif %}
+                    {% if team and team.difficulty|string() == "7" %}
+                    <option selected="selected">7</option>
+                    {% else %}
+                    <option>7</option>
+                    {% endif %}
+                    {% if team and team.difficulty|string() == "8" %}
+                    <option selected="selected">8</option>
+                    {% else %}
+                    <option>8</option>
+                    {% endif %}
+                    {% if team and team.difficulty|string() == "9" %}
+                    <option selected="selected">9</option>
+                    {% else %}
+                    <option>9</option>
+                    {% endif %}
+                </select>
+
+      </div>
+      <div class="col-3">
+		        <span class="text-danger" data-feather="bar-chart"></span> (of 9)
+	    </div>
+
+      </div>
+
+	     <div class="row p-2 mt-2" style="font-size:1.2em;">
+		        <div class="col-4 offset-3">
+		        <button type="submit" id="action" name="action" value="save" class="btn btn-outline-success"><i>Save</i>
+	          </div>
+		        <div class="col-3">
+		        <button type="submit" id="action" name="action" value="cancel" class="btn btn-outline-danger"><i>Cancel</i>
+	        </div>
+	    </div>
+
+
+	</div>
+
+
+{% endblock %}

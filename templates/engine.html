@@ -1,0 +1,81 @@
+{% extends 'layout.html' %}
+
+{% block title %} Engine {% endblock %}
+{% block header %} <h1>Engine</h1> {% endblock %}
+{% set active_page = "engine" %}
+
+{% block body %}
+
+    {% if error %}
+    <div class="alert alert-danger">
+        <strong>{{ error }}</strong>
+    </div>
+    {% endif %}
+
+    {% if autostart %}
+    <div class="alert alert-success">
+        Pentesting cycle will automatically start as soon as possible.
+    </div>
+    {% endif %}
+
+        <div class="row p-2">
+            <div class="col-sm-4" style="font-size: 1.2em;"><b>Cycler info:</b></div>
+        </div>
+
+        <div class="row p-2">
+
+            <div class="col-auto align-items-center">
+                <form method="post" action="{{ url_for('engine') }}">
+                    <div class="form">
+                        <div class="col-auto pt-1">
+                            {% if not r %}
+                            <button type="submit" id="action" name="action" value="start" class="btn btn-outline-success">Start Pentesting Cycle</button>
+                            {% else %}
+                            <button type="submit" id="action" name="action" value="stop" class="btn btn-outline-danger">Stop Pentesting Cycle</button>
+                            {% endif %}
+                            {% if not d %}
+                            <button type="submit" id="action" name="action" value="enable_destruction" class="btn btn-outline-danger">Enable Destruction</button>
+                            {% else %}
+                            <button type="submit" id="action" name="action" value="disable_destruction"class="btn btn-outline-success">Disable Destruction</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col-sm-4" style="font-size: 1.2em;"><b>Configuration:</b></div>
+        </div>
+
+        <div class="row p-2 no-gutters">
+             <div class="col-sm-auto align-items-center">
+                <form method="post" action="{{ url_for('engine') }}">
+                    <div class="form">
+                        <div class="col-sm-auto pt-1">
+                            <button type="submit" id="action" name="action" value="export" class="btn btn-outline-primary">Export Current Config</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-sm-auto align-self-center" style="font-size:1.2em;">
+                Current cycle: <b>#{{ cyc }}</b>
+            </div>
+        </div>
+
+        <div class="row p-2">
+            <div class="col-sm-4" style="font-size: 1.2em;"><b>Log:</b> <i>(10 lines)</i></div>
+        </div>
+
+        <div class="row p-2 mb-3 bg-light rounded-lg">
+            <div class="col mx-4 mt-3" style="font-size: 1.2em;">
+            {% for item in log_data %}
+                <p><code class="text-body">{{ item }}</code><p>
+            {% endfor %}
+            </div>
+        </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block title %}Teams{% endblock %}
+{% block header %}<h1>Teams</h1>{% endblock %}
+{% set active_page = "teams" %}
+
+{% block body %}
+
+    {% if success %}
+        <div class="alert alert-success">
+            Success.
+        </div>
+    {% endif %}
+    {% if error %}
+        <div class="alert alert-danger">
+            <strong>An error occured: {{ error }}</strong>
+        </div>
+    {% endif %}
+
+    {% for team in teams %}
+
+	<div class="row align-items-center p-2 {{ loop.cycle('', 'bg-light') }}" style="font-size:1.2em;">
+		<div class="col-5">
+            Team {{ team.id }}:
+            <a class="text-body" href="/teams?view={{ team.id }}">
+                <b>{{ team.name }}</b>
+            </a>
+        </div>
+		<div class="col-3 text-left" title="Number of root, user, and unprivileged shells">
+				{{ team.root_shells }} <span class="text-success" data-feather="hash"></span>
+			  	{{ team.user_shells }} <span class="text-primary" data-feather="user"></span>
+			  	{{ team.unpriv_shells }} <span class="text-muted" data-feather="lock"></span>
+		</div>
+
+		<div class="col-3 text-center">
+			Difficulty <span class="text-danger" data-feather="bar-chart"></span>
+            <b>{{ team.difficulty }}</b>
+
+		</div>
+
+        <div class="col-1 text-center justify-content-center">
+            <form method="get" class="form-inline" action="{{ url_for('teams') }}">
+                    <input type="hidden" id="view" name="view" value="{{ team.id }}"/>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <span class="text-light" data-feather="info"></span>
+                    </button>
+            </form>
+		</div>
+
+	</div>
+
+    {% endfor %}
+
+    <div class="row mt-4 justify-content-center"
+        <div class="col">
+            <form method="post" class="form-inline" action="{{ url_for('teams') }}">
+                    <button type="submit" id="action" name="action" value="add" class="btn btn-sm btn-primary">
+                        <span class="text-light" data-feather="plus"></span>
+                    </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

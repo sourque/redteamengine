@@ -1,0 +1,111 @@
+{% extends 'layout.html' %}
+
+{% block title %}Team {{ team.name }}{% endblock %}
+{% block header %}
+
+    <div class="row align-items-center">
+        <div class="col">
+            <h1>
+                Team {{ team.id }}:
+                <a class="text-body" href="/teams?view={{ team.id }}">
+                    <b>{{ team.name }}</b>
+                </a>
+            </h1>
+        </div>
+       <form method="post" class="form-inline pl-3" action="{{ url_for('teams') }}?view={{ team.id }}">
+	        <div class="form-row">
+                <input type="hidden" id="action" name="action" value="edit"/>
+                <button type="submit" class="btn btn-sm btn-outline-primary">
+                    <span data-feather="edit"></span>
+                </button>
+		    </div>
+      	</form>
+    </div>
+
+{% endblock %}
+{% set active_page = "teams" %}
+
+{% block body %}
+
+    {% if success %}
+        {% if not error %}
+        <div class="alert alert-success">
+            Success editing team.
+        </div>
+        {% else %}
+        <div class="alert alert-danger">
+            <strong>Error editing team.</strong>
+        </div>
+        {% endif %}
+    {% endif %}
+
+    <div class="row text-left align-items-center p-2" style="font-size:1.2em;">
+	    <div class="col-2"><i>Info:</i></div>
+	    <div class="col-auto" title="Team ID">
+                No. {{ team.id }}
+	    </div>
+        <div class="col-auto" title="IP Prefix">
+		        <span class="text-success" data-feather="box"></span>
+                {{ team.ip }}X
+        </div>
+    </div>
+
+    <div class="container-sm">
+	    <div class="row text-left align-items-center p-2 bg-light" style="font-size:1.2em;">
+		    <div class="col-2"><i>Shells:</i></div>
+		    <div class="col-auto">
+				    {{ team.root_shells }} <span class="text-success" data-feather="hash"></span> Root shells
+		    </div>
+		    <div class="col-auto">
+				    {{ team.user_shells }} <span class="text-primary" data-feather="user"></span> User shells
+		    </div>
+		    <div class="col-auto">
+				    {{ team.unpriv_shells }} <span class="text-muted" data-feather="lock"></span> Unpriv. shells
+		    </div>
+	    </div>
+	    <div class="row text-left align-items-center p-2 mb-4" style="font-size:1.2em;">
+		    <div class="col-2"><i>Difficulty:</i></div>
+		    <div class="col-auto">
+			    {{ team.difficulty }} <span class="text-danger" data-feather="bar-chart"></span>   (of 9)
+		    </div>
+	    </div>
+
+	    <div class="row text-left align-items-center p-2" style="font-size:1.2em;">
+		    <div class="col-3"><i>Systems:</i></div>
+	    </div>
+
+        {% for system in team.systems %}
+        <div class="row text-left align-items-center p-2 {{ loop.cycle('bg-light', '') }}" style="font-size:1.2em;">
+		    <div class="col-3">
+		        <a class="text-body" href="/systems?view={{ system.num }}&team={{ team.id }}"><b>{{ system.name }}</b></a>
+	        </div>
+
+	        <div class="col-3">
+	            <span class="text-primary" data-feather="hard-drive"></span>
+	            {{ system.os }}/{{ system.flavor }}
+            </div>
+	        <div class="col-2">
+	            <span class="text-success" data-feather="box"></span>
+	            {{ system.last_octet }}
+	        </div>
+		    <div class="col-3">
+				    {{ system.root_shells }} <span class="text-success" data-feather="hash"></span>
+				    {{ system.user_shells }} <span class="text-primary" data-feather="user"></span>
+				    {{ system.unpriv_shells }} <span class="text-muted" data-feather="lock"></span>
+		    </div>
+            <div class="col-1 text-center justify-content-center">
+                <form method="get" class="form-inline" action="{{ url_for('systems') }}">
+                        <input type="hidden" id="view" name="view" value="{{ system.num }}"/>
+                        <input type="hidden" id="team" name="team" value="{{ team.id }}"/>
+                        <button type="submit" class="btn btn-sm btn-primary">
+                            <span class="text-light" data-feather="info"></span>
+                        </button>
+                </form>
+    		</div>
+
+	    </div>
+	    {% endfor %}
+
+	</div>
+
+{% endblock %}

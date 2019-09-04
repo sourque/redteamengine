@@ -1,0 +1,49 @@
+{% extends 'layout.html' %}
+
+{% block title %}Systems{% endblock %}
+{% block header %}<h1>Systems</h1>{% endblock %}
+{% set active_page = "systems" %}
+
+{% block body %}
+
+    {% for system in systems %}
+
+    <div class="row align-items-center p-2 {{ loop.cycle('', 'bg-light') }}" style="font-size:1.2em;">
+    	<div class="col-4">System {{ system.num }}:
+              <a class="text-body" href="/systems?view={{ system.num }}">
+                  <b>{{ system.name }}</b>
+              </a>
+          </div>
+        <div class="col-4">
+            <span class="text-primary" data-feather="hard-drive"></span>
+            {{ system.os }}/{{ system.flavor }}</div>
+        <div class="col-3">
+            <span class="text-success" data-feather="box"></span>
+            X.X.X.{{ system.last_octet }}
+        </div>
+
+          <div class="col-1 text-center justify-content-center">
+              <form method="get" class="form-inline" action="{{ url_for('systems') }}">
+                      <input type="hidden" id="view" name="view" value="{{ system.num }}"/>
+                      <input type="hidden" id="team" name="team" value="{{ system.team_id }}"/>
+                      <button type="submit" class="btn btn-sm btn-primary">
+                          <span class="text-light" data-feather="info"></span>
+                      </button>
+              </form>
+          </div>
+    </div>
+
+    {% endfor %}
+
+    <div class="row mt-4 justify-content-center"
+        <div class="col">
+            <form method="get" class="form-inline" action="{{ url_for('systems') }}">
+                    <input type="hidden" id="action" name="action" value="add"/>
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <span class="text-light" data-feather="plus"></span>
+                    </button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

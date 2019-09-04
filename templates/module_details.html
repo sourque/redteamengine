@@ -1,0 +1,87 @@
+{% extends 'layout.html' %}
+
+{% block title %}module {{ module.name }}{% endblock %}
+{% block header %}
+
+    <div class="row p-2 align-items-center">
+        <div class="col">
+            <h1>module:
+                <a class="text-body" href="/modules?view={{ module.num }}">
+                    <b>{{ module[0] }}</b>
+                </a>
+            </h1>
+        </div>
+       <form method="post" class="form-inline pl-3" action="{{ url_for('modules') }}?view={{ module.num }}">
+	        <div class="form-row">
+                <input type="hidden" id="action" name="action" value="edit"/>
+                <button type="submit" class="btn btn-sm btn-outline-primary">Edit</button>
+		    </div>
+      	</form>
+    </div>
+
+{% endblock %}
+{% set active_page = "modules" %}
+
+{% block body %}
+
+    {% if success %}
+        {% if success == "yes" %}
+        <div class="alert alert-success">
+            Success editing team.
+        </div>
+        {% else %}
+        <div class="alert alert-danger">
+            <strong>Error editing team.</strong>
+        </div>
+        {% endif %}
+    {% endif %}
+
+    <div class="row text-left align-items-center p-2 mb-4" style="font-size:1.2em;">
+	    <div class="col-2"><i>Info:</i></div>
+        <div class="col-2" title="module Number">
+            No. {{ module.num }}
+        </div>
+	    <div class="col-3" title="Operating module">
+            <span class="text-primary" data-feather="hard-drive"></span>
+            {{ module.os }}/{{module.flavor}}
+	    </div>
+        <div class="col-4" title="IP Suffix">
+            <span class="text-success" data-feather="box"></span>
+            X.X.X.{{ module.last_octet }}
+        </div>
+    </div>
+
+    {% for module in modules %}
+    <div class="row text-left align-items-center p-2 {{ loop.cycle('bg-light', '') }}" style="font-size:1.2em;">
+        <div class="col-2">
+            <a class="text-body" href="/modules?view={{ module.num }}&team={{ module.team_id }}">
+                <b>Team {{ module.team_id }}</b>
+            </a>
+    </div>
+    <div class="col-2">
+        {{ module.status }}
+    </div>
+	<div class="col-3 text-left" title="Number of root, user, and unprivileged shells">
+		  	{{ module.root_shells }} <span class="text-success" data-feather="hash"></span>
+		  	{{ module.user_shells }} <span class="text-primary" data-feather="user"></span>
+		  	{{ module.unpriv_shells }} <span class="text-muted" data-feather="lock"></span>
+	</div>
+    <div class="col-4">
+        <span class="text-success" data-feather="box"></span>
+        {{ module.ip }}
+    </div>
+    <div class="col-1 text-center justify-content-center">
+        <form method="get" class="form-inline" action="{{ url_for('modules') }}">
+                <input type="hidden" id="view" name="view" value="{{ module.num }}"/>
+                <input type="hidden" id="team" name="team" value="{{ module.team_id }}"/>
+                <button type="submit" class="btn btn-sm btn-primary">
+                    <span class="text-light" data-feather="info"></span>
+                </button>
+        </form>
+    </div>
+</div>
+    {% endfor %}
+
+
+
+{% endblock %}
