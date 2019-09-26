@@ -15,7 +15,9 @@ Usage:
 
 ## Screenshots
 
-(screenshots here)
+![Dashboard](docs/images/sc1.png)
+![Systems View](docs/images/sc2.png)
+![Engine Controls](docs/images/sc3.png)
 
 ## How it Works
 
